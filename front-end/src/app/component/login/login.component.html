@@ -1,0 +1,24 @@
+<div class="center-content">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title class="title">Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <mat-form-field class="example-full-width">
+          <mat-label>Email</mat-label>
+          <input type="email" matInput placeholder="Email" type="email" formControlName="email" value="">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-hint *ngIf="loginForm.controls.email.errors">Email is Requires</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <mat-label>Password</mat-label>
+          <input type="password" formControlName="password" matInput placeholder="Password">
+          <mat-hint *ngIf="loginForm.controls.password.errors">Email is Requires</mat-hint>
+          <mat-icon matSuffix>vpn_key</mat-icon>
+        </mat-form-field>
+        <button mat-flat-button color="primary" [disabled]="!loginForm.valid">Login</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>
