@@ -32,11 +32,14 @@
                 <mat-form-field class="example-full-width">
                     <mat-label>Confirm Password</mat-label>
                     <input type="password" formControlName="passwordconfirm" matInput placeholder="confirm password">
-                    <mat-hint *ngIf="registerForm.controls.passwordconfirm.errors">password is Requires</mat-hint>
+                    <mat-hint *ngIf="registerForm.hasError('passwordsNotMatching')">password is Requires</mat-hint>
                     <mat-icon matSuffix>vpn_key</mat-icon>
                 </mat-form-field>
                 <button mat-flat-button color="primary" [disabled]="!registerForm.valid">Login</button>
             </form>
+            <h3 *ngIf="registerForm.invalid">Forms contains Following</h3>
+            <small *ngIf="registerForm.get('password').hasError('passwordInvalid')">Password is not contains Number</small>
+            <!-- <small *ngIf="registerForm.hasError('passwordsNotMatching')">Password no matching</small> -->
         </mat-card-content>
     </mat-card>
 </div>
