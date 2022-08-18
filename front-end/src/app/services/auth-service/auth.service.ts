@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 
 
-export interface user {
+export interface User {
   name?: string;
   email?: string;
   username?: string;
   password?: string;
-  passwordconfirm?: boolean;
+  role?: string;
+ // passwordconfirm?: boolean;
 }
 
 export interface LoginForm{
@@ -36,7 +37,6 @@ export class AuthService {
       })
     )
   }
-
 
   register(user: any){
       return this.http.post<any>(this.API_URL + 'user/', user).pipe(

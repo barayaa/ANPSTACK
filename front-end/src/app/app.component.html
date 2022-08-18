@@ -1,9 +1,20 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <span class="example-spacer">Custom Toolbar</span>
-    <a routerLink="/login">Login</a>
-    <a routerLink="/register">Register</a>
-    <a routerLink="/admin">Admin</a>
+    <button style="margin-left: 20px" mat-flat-button routerLink="/user">Users</button>
+    <button style="margin-left: 20px" mat-flat-button routerLink="/admin">Admin</button>
+    <mat-form-field style="margin-left: 20px" name="loginRegisterDropdown">
+      <mat-select placeholder="login" (selectionChange)="navigateTo($event.value)">
+        <mat-option *ngFor="let entry of entries" [value]="entry.link">
+          {{entry.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </mat-toolbar-row>
 </mat-toolbar>
 <router-outlet></router-outlet>
+
+
+
+<!-- <a routerLink="/login">Login</a>
+<a routerLink="/register">Register</a> -->
