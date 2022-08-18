@@ -20,6 +20,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
+import { MatPaginatorModule} from '@angular/material/paginator'
 
 
 @NgModule({
@@ -44,6 +45,7 @@ import {MatTableModule} from '@angular/material/table';
     MatCardModule,
     MatSelectModule,
     MatTableModule,
+    MatPaginatorModule,
     BrowserAnimationsModule,
 
   ],

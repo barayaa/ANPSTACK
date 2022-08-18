@@ -4,6 +4,7 @@ import { map } from 'rxjs';
 
 
 export interface User {
+  items: User[] | undefined;
   name?: string;
   email?: string;
   username?: string;
