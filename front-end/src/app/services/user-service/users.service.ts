@@ -39,14 +39,29 @@ export class UsersService {
         return userData;
       }),
       catchError(err => throwError(err))
-      // catchError(err => {
-      //   return throwError(err);
-      // }),
-    )
-  //   return this.http.get(this.API_URL + 'user' ,{params}).pipe(
+     
+    )}
+
+    paginateByUserName(page: number, size: number, username: string): Observable<UserData> {
+      let params = new HttpParams() 
+
+      params = params.append('page', String(page));
+      params = params.append('size', String(size));
+      params = params.append('username', username)
+
+      return this.http.get<UserData>(this.API_URL + 'user', {params}).pipe(
+        map((userData: UserData) =>{
+          return userData;
+        }),
+        catchError(err => throwError(err))
+      )
+    }
+}
+
+
+
+//   return this.http.get(this.API_URL + 'user' ,{params}).pipe(
   //  //   map((userData: UserData) => userData),
   //     map(( userData: UserData) => { return userData }),
   //     catchError(err => throwError(err))
   //   )   
-  }
-}

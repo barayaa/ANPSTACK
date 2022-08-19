@@ -35,7 +35,6 @@ export class UserService {
         )
     }
 
-
     paginate(options: IPaginationOptions): Observable<Pagination<User>>{
         return from(paginate<User>(this.userRepository, options)).pipe(
             map((userPageable: Pagination<User>) =>{

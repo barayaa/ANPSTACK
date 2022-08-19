@@ -21,6 +21,7 @@ export class UsersComponent implements OnInit {
 
   data: any 
   data1: any 
+  filterValue: any
   pageEvent = PageEvent ;
   // dataSource!: UserData | null;
  //  data = new MatTableDataSource<UserData>();
@@ -58,15 +59,35 @@ export class UsersComponent implements OnInit {
   onPaginateChange(event: PageEvent){
     let page = event.pageIndex;
     let size = event.pageSize;
-    page = page +1
+  
+
+    if(this.filterValue === null){
+      page = page +1 
+      this.userService.findAll(page, size).subscribe(
+        (userData: UserData) => {
+            this.data =  userData;
+          console.log('data1', this.data)
+          this.data.paginator = this.paginator;
+          this.data.sort = this.sort;
+        }
+      ) 
+    }else{
+      this.userService.paginateByUserName(page, size, this.filterValue).subscribe(
+        (userData: UserData) => {
+          this.data = userData;
+        }
+      )
+    }
     
 
-    this.userService.findAll(page, size).subscribe(
+   
+  }
+
+
+  findByName(username: string){
+    this.userService.paginateByUserName(1 ,10 , username).subscribe(
       (userData: UserData) => {
-          this.data =  userData;
-        console.log('data1', this.data)
-        this.data.paginator = this.paginator;
-        this.data.sort = this.sort;
+        this.data = userData;
       }
     )
   }
