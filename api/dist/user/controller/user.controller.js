@@ -34,9 +34,14 @@ let UserController = class UserController {
             };
         }));
     }
-    index(page = 1, limit = 10) {
+    index(page = 1, limit = 10, username) {
         limit = limit > 100 ? 100 : limit;
-        return this.userService.paginate({ page: Number(page), limit: Number(limit), route: 'http://localhost:3000/api/user' });
+        if (username === null || username === undefined) {
+            return this.userService.paginate({ page: Number(page), limit: Number(limit), route: 'http://localhost:3000/api/user' });
+        }
+        else {
+            return this.userService.paginateFilterByUsername({ page: Number(page), limit: Number(limit), route: 'http://localhost:3000/api/users' }, username);
+        }
     }
     getById(param) {
         return this.userService.findOne(param.id);
@@ -67,10 +72,11 @@ __decorate([
 ], UserController.prototype, "login", null);
 __decorate([
     (0, common_1.Get)(),
-    __param(0, (0, common_1.Query)('page', new common_1.DefaultValuePipe(1), common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Query)('limit', new common_1.DefaultValuePipe(10), common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Query)('page')),
+    __param(1, (0, common_1.Query)('limit')),
+    __param(2, (0, common_1.Query)('username')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number]),
+    __metadata("design:paramtypes", [Number, Number, String]),
     __metadata("design:returntype", rxjs_1.Observable)
 ], UserController.prototype, "index", null);
 __decorate([

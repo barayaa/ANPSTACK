@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Observable, from, switchMap, map, catchError, throwError,  } from 'rxjs';
 import { AuthService } from 'src/auth/services/auth.service';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { UserEntity, UserRole } from '../models/user.entity';
 import { User } from '../models/user.interface';
 import {paginate,Pagination,IPaginationOptions} from 'nestjs-typeorm-paginate';
@@ -44,6 +44,19 @@ export class UserService {
             })
         )
     }
+
+
+    paginateFilterByUsername(options: IPaginationOptions, username: string): Observable<Pagination<User>>{
+        return from(paginate<User>(this.userRepository, options, {where: {username: Like(`%${username}%`)}})).pipe(
+            map((userPageable: Pagination<User>) =>{
+                userPageable.items.forEach(function (v) {delete v.password});
+                return userPageable
+            })
+        )
+    }
+
+
+
 
     findAll(): Observable<User[]> {
         return from(this.userRepository.find()).pipe(

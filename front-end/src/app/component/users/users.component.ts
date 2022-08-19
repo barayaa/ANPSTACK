@@ -58,8 +58,8 @@ export class UsersComponent implements OnInit {
   onPaginateChange(event: PageEvent){
     let page = event.pageIndex;
     let size = event.pageSize;
-
     page = page +1
+    
 
     this.userService.findAll(page, size).subscribe(
       (userData: UserData) => {
@@ -89,9 +89,3 @@ export class UsersComponent implements OnInit {
 }
 
 
-// <mat-paginator [length]="data.meta.totalItems" 
-// [pageSize]="data.meta.itemsPerpage" 
-// [pageSizeOptions]="[5,10, 15,20]" 
-// (page)="onPaginateChange($event)">
-// showFirstLastButtons>
-// </mat-paginator>

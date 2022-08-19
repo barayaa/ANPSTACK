@@ -7,7 +7,7 @@ export declare class UserController {
     constructor(userService: UserService);
     create(user: User): Observable<User | Object>;
     login(user: User): Observable<Object>;
-    index(page?: number, limit?: number): Observable<Pagination<User>>;
+    index(page: number, limit: number, username: string): Observable<Pagination<User>>;
     getById(param: any): Observable<User>;
     update(id: string, user: User): Observable<any>;
     delete(id: string): Observable<User>;

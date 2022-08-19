@@ -56,6 +56,12 @@ let UserService = class UserService {
             return userPageable;
         }));
     }
+    paginateFilterByUsername(options, username) {
+        return (0, rxjs_1.from)((0, nestjs_typeorm_paginate_1.paginate)(this.userRepository, options, { where: { username: (0, typeorm_2.Like)(`%${username}%`) } })).pipe((0, rxjs_1.map)((userPageable) => {
+            userPageable.items.forEach(function (v) { delete v.password; });
+            return userPageable;
+        }));
+    }
     findAll() {
         return (0, rxjs_1.from)(this.userRepository.find()).pipe((0, rxjs_1.map)((users) => {
             users.forEach(function (v) { delete v.password; });
