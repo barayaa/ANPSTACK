@@ -58,7 +58,7 @@ export class RegisterComponent implements OnInit {
         passwordconfirm: [null , [Validators.required]]
     },
     {
-      validators: CustomValidators.passwordMatch
+      //validators: CustomValidators.passwordMatch
     }
     )
   }
