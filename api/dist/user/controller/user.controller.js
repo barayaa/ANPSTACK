@@ -23,6 +23,7 @@ const user_service_1 = require("../service/user.service");
 const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = require("multer");
 const path_1 = require("path");
+const userIsUser_guard_1 = require("../../auth/guards/userIsUser-guard");
 exports.storage = {
     storage: (0, multer_1.diskStorage)({
         destination: './uploads/profilesimages',
@@ -108,6 +109,7 @@ __decorate([
     __metadata("design:returntype", rxjs_1.Observable)
 ], UserController.prototype, "getById", null);
 __decorate([
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard, userIsUser_guard_1.UseerIsUser),
     (0, common_1.Put)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),

@@ -9,9 +9,8 @@ import { User } from '../models/user.interface';
 import { UserService } from '../service/user.service';
 import {  FileInterceptor } from '@nestjs/platform-express';
 import {diskStorage} from 'multer'
-
 import path, { extname, join } from 'path';
-//import { User } from '../../../dist/user/models/user.interface';
+import { UseerIsUser } from 'src/auth/guards/userIsUser-guard';
 
 
 export const storage = {
@@ -76,6 +75,8 @@ export class UserController {
     }
 
 
+
+    @UseGuards(JwtAuthGuard, UseerIsUser)
     @Put(':id')
     update(@Param('id') id: string, @Body() user: User): Observable<any> {
         return this.userService.updateOne(Number(id), user)
