@@ -13,7 +13,7 @@ export declare class UserService {
     paginateFilterByUsername(options: IPaginationOptions, username: string): Observable<Pagination<User>>;
     findAll(): Observable<User[]>;
     findOne(id: number): Observable<User>;
-    updateOne(id: number, user: User): Observable<any>;
+    updateOne(id: number, user: User): Observable<User>;
     updateRoleOfUser(id: number, user: User): Observable<any>;
     deleteOne(id: number): Observable<any>;
     login(user: User): Observable<string>;
@@ -23,6 +23,7 @@ export declare class UserService {
         username?: string;
         email?: string;
         role?: UserRole;
+        profileImage?: string;
     }>;
     findByEmail(email: string): Observable<any>;
 }

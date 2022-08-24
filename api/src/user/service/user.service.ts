@@ -69,18 +69,20 @@ export class UserService {
     findOne(id: number): Observable<User> {
         return from(this.userRepository.findOne({ where: { id } })).pipe(
             map((user: User) => {
-                console.log(user);
+              //  console.log(user);
                 const { password, ...result } = user
                 return result
             })
         )
     }
 
-    updateOne(id: number, user: User): Observable<any> {
+    updateOne(id: number, user: User): Observable<User> {
         delete user.email
         delete user.password
         delete user.role
-        return from(this.userRepository.update(id, user))
+        return from(this.userRepository.update(id, user)).pipe(
+            switchMap(()=> this.findOne(id))
+        )
     }
 
 

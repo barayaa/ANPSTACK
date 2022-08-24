@@ -32,6 +32,11 @@ export class UserEntity {
      })
      role: UserRole
 
+     @Column({
+      nullable: true
+     })
+     profileImage: string
+
      @BeforeInsert()
      emailToLowerCase(){
         this.email = this.email.toLowerCase();

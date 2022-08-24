@@ -12,7 +12,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserController = void 0;
+exports.UserController = exports.storage = void 0;
 const common_1 = require("@nestjs/common");
 const rxjs_1 = require("rxjs");
 const roles_decorators_1 = require("../../auth/decorator/roles.decorators");
@@ -20,6 +20,18 @@ const jwt_guard_1 = require("../../auth/guards/jwt-guard");
 const role_guards_1 = require("../../auth/guards/role.guards");
 const user_entity_1 = require("../models/user.entity");
 const user_service_1 = require("../service/user.service");
+const platform_express_1 = require("@nestjs/platform-express");
+const multer_1 = require("multer");
+const path_1 = require("path");
+exports.storage = {
+    storage: (0, multer_1.diskStorage)({
+        destination: './uploads/profilesimages',
+        filename: (req, file, cb) => {
+            const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+            return cb(null, `${randomName}${(0, path_1.extname)(file.originalname)}`);
+        }
+    })
+};
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -54,6 +66,15 @@ let UserController = class UserController {
     }
     updateUserRole(id, user) {
         return this.userService.updateRoleOfUser(Number(id), user);
+    }
+    uploadfile(file, req) {
+        const user = req.user.user;
+        return this.userService.updateOne(user.id, { profileImage: file.filename }).pipe((0, rxjs_1.tap)((user) => console.log(user)), (0, rxjs_1.map)((user) => ({
+            profileImage: user.profileImage
+        })));
+    }
+    findProfileImage(imagename, res) {
+        return (0, rxjs_1.of)(res.sendFile((0, path_1.join)(process.cwd(), 'uploads/profilesimages/' + imagename)));
     }
 };
 __decorate([
@@ -111,6 +132,24 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", rxjs_1.Observable)
 ], UserController.prototype, "updateUserRole", null);
+__decorate([
+    (0, common_1.UseGuards)(jwt_guard_1.JwtAuthGuard),
+    (0, common_1.Post)('upload'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', exports.storage)),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Request)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", rxjs_1.Observable)
+], UserController.prototype, "uploadfile", null);
+__decorate([
+    (0, common_1.Get)('profile-image/:imagename'),
+    __param(0, (0, common_1.Param)('imagename')),
+    __param(1, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Object]),
+    __metadata("design:returntype", rxjs_1.Observable)
+], UserController.prototype, "findProfileImage", null);
 UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [user_service_1.UserService])

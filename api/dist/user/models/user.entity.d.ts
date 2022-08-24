@@ -10,5 +10,6 @@ export declare class UserEntity {
     email: string;
     password: string;
     role: UserRole;
+    profileImage: string;
     emailToLowerCase(): void;
 }

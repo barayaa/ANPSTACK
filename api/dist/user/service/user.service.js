@@ -70,7 +70,6 @@ let UserService = class UserService {
     }
     findOne(id) {
         return (0, rxjs_1.from)(this.userRepository.findOne({ where: { id } })).pipe((0, rxjs_1.map)((user) => {
-            console.log(user);
             const { password } = user, result = __rest(user, ["password"]);
             return result;
         }));
@@ -79,7 +78,7 @@ let UserService = class UserService {
         delete user.email;
         delete user.password;
         delete user.role;
-        return (0, rxjs_1.from)(this.userRepository.update(id, user));
+        return (0, rxjs_1.from)(this.userRepository.update(id, user)).pipe((0, rxjs_1.switchMap)(() => this.findOne(id)));
     }
     updateRoleOfUser(id, user) {
         return (0, rxjs_1.from)(this.userRepository.update(id, user));
