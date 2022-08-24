@@ -28,7 +28,10 @@ exports.storage = {
     storage: (0, multer_1.diskStorage)({
         destination: './uploads/profilesimages',
         filename: (req, file, cb) => {
-            const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+            const randomName = Array(32)
+                .fill(null)
+                .map(() => Math.round(Math.random() * 16).toString(16))
+                .join('');
             return cb(null, `${randomName}${(0, path_1.extname)(file.originalname)}`);
         }
     })
@@ -70,6 +73,7 @@ let UserController = class UserController {
     }
     uploadfile(file, req) {
         const user = req.user.user;
+        console.log(user);
         return this.userService.updateOne(user.id, { profileImage: file.filename }).pipe((0, rxjs_1.tap)((user) => console.log(user)), (0, rxjs_1.map)((user) => ({
             profileImage: user.profileImage
         })));

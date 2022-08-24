@@ -29,6 +29,7 @@
     "@nestjs/platform-express": "^8.4.7",
     "@nestjs/typeorm": "^9.0.0",
     "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "nestjs-paginate": "^4.1.0",
     "nestjs-typeorm-paginate": "^4.0.1",
     "passport": "^0.6.0",

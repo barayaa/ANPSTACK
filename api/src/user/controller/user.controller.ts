@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-inferrable-types */
+/* eslint-disable prettier/prettier */
 import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors ,Request, Res } from '@nestjs/common';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { map, Observable, catchError, of, switchMap, tap } from 'rxjs';
@@ -17,7 +20,10 @@ export const storage = {
     storage: diskStorage({
         destination: './uploads/profilesimages',
         filename: (req, file, cb) =>{
-            const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('')
+      const randomName = Array(32)
+        .fill(null)
+        .map(() => Math.round(Math.random() * 16).toString(16))
+        .join('');
             return cb(null, `${randomName}${extname(file.originalname)}`)
         }
     })
@@ -99,6 +105,8 @@ export class UserController {
     @UseInterceptors(FileInterceptor('file' , storage))
     uploadfile(@UploadedFile() file, @Request() req): Observable<User> {
         const user: User = req.user.user;
+        console.log(user);
+        
         return this.userService.updateOne(user.id ,{profileImage: file.filename}).pipe(
             tap((user: User)=> console.log(user)),
             map((user: User) =>({

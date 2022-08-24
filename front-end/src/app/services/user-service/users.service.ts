@@ -18,7 +18,7 @@ export interface UserData {
     next: string,
     last: string
  }
-} 
+}
 
 
 @Injectable({
@@ -32,7 +32,7 @@ export class UsersService {
 
 
   findOne(id: number): Observable<any> {
-    return this.http.get(this.API_URL + '/users/' + id).pipe(
+    return this.http.get(this.API_URL + 'user/' + id).pipe(
       map((user: any) => user)
     )
   }
@@ -46,12 +46,10 @@ export class UsersService {
         return userData;
       }),
       catchError(err => throwError(err))
-     
     )}
 
     paginateByUserName(page: number, size: number, username: string): Observable<UserData> {
-      let params = new HttpParams() 
-
+      let params = new HttpParams()
       params = params.append('page', String(page));
       params = params.append('size', String(size));
       params = params.append('username', username)

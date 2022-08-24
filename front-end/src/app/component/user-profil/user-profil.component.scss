@@ -1,0 +1,23 @@
+.header-image{
+  background-size: cover;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.card{
+  width: 80%;
+  max-width: 80%;
+  margin-top: 80px;
+  height: 300px;
+  align-content: center;
+
+}
+
+.main-div{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}

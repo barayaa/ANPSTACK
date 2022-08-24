@@ -4,6 +4,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 
 import {MatTableDataSource} from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map, tap } from 'rxjs';
 import { User } from 'src/app/services/auth-service/auth.service';
 import {  UserData, UsersService } from 'src/app/services/user-service/users.service';
@@ -19,8 +20,8 @@ import {  UserData, UsersService } from 'src/app/services/user-service/users.ser
 export class UsersComponent implements OnInit {
 
 
-  data: any 
-  data1: any 
+  data: any
+  data1: any
   filterValue: any
   pageEvent = PageEvent ;
   // dataSource!: UserData | null;
@@ -35,11 +36,13 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private http: HttpClient,
-    private userService: UsersService
+    private userService: UsersService,
+    private router : Router,
+    private activatedRoute: ActivatedRoute
   ) { }
 
 
- 
+
   ngOnInit(): void {
     this.initDataSource();
   }
@@ -59,10 +62,10 @@ export class UsersComponent implements OnInit {
   onPaginateChange(event: PageEvent){
     let page = event.pageIndex;
     let size = event.pageSize;
-  
+
 
     if(this.filterValue === null){
-      page = page +1 
+      page = page +1
       this.userService.findAll(page, size).subscribe(
         (userData: UserData) => {
             this.data =  userData;
@@ -70,7 +73,7 @@ export class UsersComponent implements OnInit {
           this.data.paginator = this.paginator;
           this.data.sort = this.sort;
         }
-      ) 
+      )
     }else{
       this.userService.paginateByUserName(page, size, this.filterValue).subscribe(
         (userData: UserData) => {
@@ -78,9 +81,9 @@ export class UsersComponent implements OnInit {
         }
       )
     }
-    
 
-   
+
+
   }
 
 
@@ -93,17 +96,22 @@ export class UsersComponent implements OnInit {
   }
 
 
+  navigateToProfile(id: any){
+      this.router.navigate(['./' + id], {relativeTo: this.activatedRoute})
+  }
+
+
   // ngAfterViewInit() {
   //   this.data.paginator = this.paginator;
   //   this.data.sort = this.sort;
-   
+
   // }
 
 
   // initDataSource() {
   //   this.userService.findAll(1, 10).pipe(
   //     tap(users => console.log(users)),
-  //     map((userData: User) => this.dataSource = userData),  
+  //     map((userData: User) => this.dataSource = userData),
   //   ).subscribe()
   // }
 
