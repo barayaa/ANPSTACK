@@ -30,6 +30,13 @@ export class UsersService {
 
   constructor(private http: HttpClient) { }
 
+
+  findOne(id: number): Observable<any> {
+    return this.http.get(this.API_URL + '/users/' + id).pipe(
+      map((user: any) => user)
+    )
+  }
+
   findAll(page: number, size: number): Observable<UserData>{
     let params = new HttpParams();
     params = params.append('page', String(page));
@@ -60,8 +67,3 @@ export class UsersService {
 
 
 
-//   return this.http.get(this.API_URL + 'user' ,{params}).pipe(
-  //  //   map((userData: UserData) => userData),
-  //     map(( userData: UserData) => { return userData }),
-  //     catchError(err => throwError(err))
-  //   )   

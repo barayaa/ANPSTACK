@@ -20,7 +20,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
-import { MatPaginatorModule} from '@angular/material/paginator'
+import { MatPaginatorModule} from '@angular/material/paginator';
+import { UserProfilComponent } from './component/user-profil/user-profil.component'
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { MatPaginatorModule} from '@angular/material/paginator'
     RegisterComponent,
     LoginComponent,
     UsersComponent,
+    UserProfilComponent,
     
   ],
   imports: [
