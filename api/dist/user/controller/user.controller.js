@@ -73,8 +73,7 @@ let UserController = class UserController {
     }
     uploadfile(file, req) {
         const user = req.user.user;
-        console.log(user);
-        return this.userService.updateOne(user.id, { profileImage: file.filename }).pipe((0, rxjs_1.tap)((user) => console.log(user)), (0, rxjs_1.map)((user) => ({
+        return this.userService.updateOne(user.id, { profileImage: file.filename }).pipe((0, rxjs_1.map)((user) => ({
             profileImage: user.profileImage
         })));
     }

@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
-/* eslint-disable @typescript-eslint/no-inferrable-types */
-/* eslint-disable prettier/prettier */
 import { Body, Controller, DefaultValuePipe, Delete, Get, Param, ParseIntPipe, Post, Put, Query, UploadedFile, UseGuards, UseInterceptors ,Request, Res } from '@nestjs/common';
 import { Pagination } from 'nestjs-typeorm-paginate';
 import { map, Observable, catchError, of, switchMap, tap } from 'rxjs';
@@ -105,10 +102,10 @@ export class UserController {
     @UseInterceptors(FileInterceptor('file' , storage))
     uploadfile(@UploadedFile() file, @Request() req): Observable<User> {
         const user: User = req.user.user;
-        console.log(user);
+        // console.log(user);
         
         return this.userService.updateOne(user.id ,{profileImage: file.filename}).pipe(
-            tap((user: User)=> console.log(user)),
+            // tap((user: User)=> console.log(user)),
             map((user: User) =>({
                 profileImage: user.profileImage
             }))

@@ -53,7 +53,7 @@ export class UsersComponent implements OnInit {
       (userData: UserData) => {
         //this.data =  new MatTableDataSource<User>(userData.items);
         this.data = userData;
-        console.log('data', this.data)
+     //   console.log('data', this.data)
       }
     )
   }

@@ -8,7 +8,7 @@ import { RegisterComponent } from './component/register/register.component';
 import { LoginComponent } from './component/login/login.component';
 import { UsersComponent } from './component/users/users.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -21,7 +21,10 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatTableModule} from '@angular/material/table';
 import { MatPaginatorModule} from '@angular/material/paginator';
-import { UserProfilComponent } from './component/user-profil/user-profil.component'
+import { UserProfilComponent } from './component/user-profil/user-profil.component';
+import { UpdateUserProfileComponent } from './component/update-user-profile/update-user-profile.component'
+import { JwtHelperService ,JWT_OPTIONS } from "@auth0/angular-jwt";
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
 
 
 @NgModule({
@@ -31,6 +34,7 @@ import { UserProfilComponent } from './component/user-profil/user-profil.compone
     LoginComponent,
     UsersComponent,
     UserProfilComponent,
+    UpdateUserProfileComponent,
     
   ],
   imports: [
@@ -51,7 +55,12 @@ import { UserProfilComponent } from './component/user-profil/user-profil.compone
     BrowserAnimationsModule,
 
   ],
-  providers: [],
+  providers: [JwtHelperService, 
+    {provide: JWT_OPTIONS, useValue: JWT_OPTIONS},
+    { provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
