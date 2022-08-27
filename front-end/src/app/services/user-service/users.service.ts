@@ -31,9 +31,15 @@ export class UsersService {
   constructor(private http: HttpClient) { }
 
 
-  findOne(id: number): Observable<any> {
-    return this.http.get(this.API_URL + 'user/' + id).pipe(
-      map((user: any) => user)
+  findOne(id: number): Observable<User> {
+    return this.http.get<User>(this.API_URL + 'user/' + id).pipe(
+      map((user: User) => user)
+    )
+  }
+
+  updateOne(user: any): Observable<User>{
+    return this.http.put<User>(this.API_URL + 'user/' + user.id , user).pipe(
+      map((user: User) => user)
     )
   }
 

@@ -14,8 +14,8 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UseerIsUser = void 0;
 const common_1 = require("@nestjs/common");
-const rxjs_1 = require("rxjs");
 const user_service_1 = require("../../user/service/user.service");
+const operators_1 = require("rxjs/operators");
 let UseerIsUser = class UseerIsUser {
     constructor(userService) {
         this.userService = userService;
@@ -24,7 +24,7 @@ let UseerIsUser = class UseerIsUser {
         const request = context.switchToHttp().getRequest();
         const params = request.params;
         const user = request.user.user;
-        return this.userService.findOne(user.id).pipe((0, rxjs_1.map)((user) => {
+        return this.userService.findOne(user.id).pipe((0, operators_1.map)((user) => {
             let hasPermission = false;
             if (user.id === Number(params.id)) {
                 hasPermission = true;

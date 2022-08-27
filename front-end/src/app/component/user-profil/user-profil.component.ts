@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { User } from 'src/app/services/auth-service/auth.service';
 import { UserData, UsersService } from 'src/app/services/user-service/users.service';
 
 @Component({
@@ -26,7 +27,7 @@ export class UserProfilComponent implements OnInit , OnDestroy {
     this.sub = this.activatedRoute.params.subscribe(params =>{
       this.userId = parseInt(params['id']);
       this.userService.findOne(this.userId).subscribe(
-        (user: UserData) => {
+        (user: User) => {
           this.user = user
         }
       )

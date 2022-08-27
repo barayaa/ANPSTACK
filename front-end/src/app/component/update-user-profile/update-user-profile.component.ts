@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { switchMap, tap } from 'rxjs';
+import { AuthService, User } from 'src/app/services/auth-service/auth.service';
+import { UsersService } from 'src/app/services/user-service/users.service';
 
 @Component({
   selector: 'app-update-user-profile',
@@ -7,9 +11,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateUserProfileComponent implements OnInit {
 
-  constructor() { }
+  form!: FormGroup;
+
+  constructor(
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private userService: UsersService,
+  ) { }
 
   ngOnInit(): void {
+    this.form = this.formBuilder.group({
+      id: [{value: null, disabled: true }, [Validators.required]],
+      name: [null, [Validators.required]],
+      username: [null, [Validators.required]],
+    });
+
+    this.authService.getUserId().pipe(
+      switchMap((id:number) => this.userService.findOne(id).pipe(
+        tap((user: User) =>{
+          this.form.patchValue({
+            id: user.id,
+            name: user.name,
+            username: user.username
+          })
+        })
+      ))
+    ).subscribe()
+  }
+
+  update(){
+    this.userService.updateOne(this.form.getRawValue()).subscribe()
   }
 
 }
