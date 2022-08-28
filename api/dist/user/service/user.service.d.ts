@@ -24,6 +24,7 @@ export declare class UserService {
         email?: string;
         role?: UserRole;
         profileImage?: string;
+        blogEntries?: import("../../blog/model/blog_entry_interface").BlogEntry[];
     }>;
     findByEmail(email: string): Observable<any>;
 }

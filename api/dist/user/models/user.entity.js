@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserEntity = exports.UserRole = void 0;
+const blog_entry_entity_1 = require("../../blog/model/blog_entry_entity");
 const typeorm_1 = require("typeorm");
 var UserRole;
 (function (UserRole) {
@@ -56,6 +57,10 @@ __decorate([
     }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "profileImage", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(type => blog_entry_entity_1.BlogEntryEntity, blogEntryEntity => blogEntryEntity.author),
+    __metadata("design:type", Array)
+], UserEntity.prototype, "blogEntries", void 0);
 __decorate([
     (0, typeorm_1.BeforeInsert)(),
     __metadata("design:type", Function),

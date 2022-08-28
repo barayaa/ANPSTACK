@@ -1,3 +1,4 @@
+import { BlogEntryEntity } from "src/blog/model/blog_entry_entity";
 export declare enum UserRole {
     ADMIN = "admin",
     EDITOR = "editor",
@@ -11,5 +12,6 @@ export declare class UserEntity {
     password: string;
     role: UserRole;
     profileImage: string;
+    blogEntries: BlogEntryEntity[];
     emailToLowerCase(): void;
 }
