@@ -68,19 +68,25 @@ __decorate([
     __metadata("design:type", Number)
 ], BlogEntryEntity.prototype, "likes", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({
+        nullable: true
+    }),
     __metadata("design:type", String)
 ], BlogEntryEntity.prototype, "headerImage", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({
+        nullable: true
+    }),
     __metadata("design:type", Date)
 ], BlogEntryEntity.prototype, "publishedDate", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({
+        nullable: true
+    }),
     __metadata("design:type", Boolean)
 ], BlogEntryEntity.prototype, "isPublished", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(type => user_entity_1.UserEntity, user => user.blogEntries),
+    (0, typeorm_1.ManyToOne)(() => user_entity_1.UserEntity, user => user.blogEntries),
     __metadata("design:type", user_entity_1.UserEntity)
 ], BlogEntryEntity.prototype, "author", void 0);
 BlogEntryEntity = __decorate([

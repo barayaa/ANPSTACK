@@ -121,6 +121,19 @@ export class UserService {
                 })
             ))
         )
+        
+        // return from(this.userRepository.findOne({email},{select: ['id', 'password', 'name' , 'username' , 'email', 'role', 'profileImage']})).pipe(
+        //     switchMap((user: User) => this.authService.comparePassword(password, user.password).pipe(
+        //         map((match : boolean) =>{
+        //             if(match) {
+        //                 const {password, ...result } = user
+        //                 return result
+        //             }else{
+        //                  throw Error
+        //             }
+        //         })
+        //     ))
+        // )
     }
 
     findByEmail(email: string): Observable<any>{

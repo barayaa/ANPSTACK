@@ -12,6 +12,8 @@ const typeorm_1 = require("@nestjs/typeorm");
 const auth_module_1 = require("../auth/auth.module");
 const blog_entry_entity_1 = require("./model/blog_entry_entity");
 const user_module_1 = require("../user/user.module");
+const blog_controller_1 = require("./controller/blog.controller");
+const blog_service_1 = require("./service/blog.service");
 let BlogModule = class BlogModule {
 };
 BlogModule = __decorate([
@@ -20,7 +22,9 @@ BlogModule = __decorate([
             typeorm_1.TypeOrmModule.forFeature([blog_entry_entity_1.BlogEntryEntity]),
             auth_module_1.AuthModule,
             user_module_1.UserModule
-        ]
+        ],
+        controllers: [blog_controller_1.BlogController],
+        providers: [blog_service_1.BlogService]
     })
 ], BlogModule);
 exports.BlogModule = BlogModule;

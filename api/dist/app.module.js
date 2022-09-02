@@ -30,6 +30,9 @@ AppModule = __decorate([
                 database: 'nest',
                 autoLoadEntities: true,
                 synchronize: true,
+                "entities": [
+                    __dirname + "entities/**/*.entity.ts"
+                ]
             }),
             user_module_1.UserModule,
             auth_module_1.AuthModule,

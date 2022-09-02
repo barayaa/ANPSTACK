@@ -40,7 +40,9 @@ __decorate([
     __metadata("design:type", String)
 ], UserEntity.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({
+        select: false
+    }),
     __metadata("design:type", String)
 ], UserEntity.prototype, "password", void 0);
 __decorate([
@@ -58,7 +60,7 @@ __decorate([
     __metadata("design:type", String)
 ], UserEntity.prototype, "profileImage", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(type => blog_entry_entity_1.BlogEntryEntity, blogEntryEntity => blogEntryEntity.author),
+    (0, typeorm_1.OneToMany)(() => blog_entry_entity_1.BlogEntryEntity, blogEntryEntity => blogEntryEntity.author),
     __metadata("design:type", Array)
 ], UserEntity.prototype, "blogEntries", void 0);
 __decorate([

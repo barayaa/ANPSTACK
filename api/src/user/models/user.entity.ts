@@ -23,7 +23,9 @@ export class UserEntity {
      @Column({unique: true})
      email: string;
 
-     @Column()
+     @Column({
+      select: false
+     })
      password: string;
 
      @Column({
@@ -38,7 +40,7 @@ export class UserEntity {
      })
      profileImage: string;
 
-     @OneToMany(type => BlogEntryEntity, blogEntryEntity => blogEntryEntity.author)
+     @OneToMany( () => BlogEntryEntity, blogEntryEntity => blogEntryEntity.author)
      blogEntries: BlogEntryEntity[]
 
      @BeforeInsert()

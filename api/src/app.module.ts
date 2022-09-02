@@ -20,6 +20,9 @@ import { BlogModule } from './blog/blog.module';
       database: 'nest',
       autoLoadEntities: true,
       synchronize: true,
+      "entities": [
+        __dirname + "entities/**/*.entity.ts"
+      ]
     }),
     UserModule,
     AuthModule,
